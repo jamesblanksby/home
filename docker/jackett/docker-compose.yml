@@ -1,0 +1,19 @@
+version: "3"
+services:
+  jackett:
+    image: linuxserver/jackett
+    restart: unless-stopped
+    ports:
+      - 9117:9117
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/London
+    volumes:
+      - $PWD/conf:/config
+      - /volume/torrent/watch:/downloads
+    deploy:
+      resources:
+         limits:
+            cpus: "0.25"
+    container_name: jackett

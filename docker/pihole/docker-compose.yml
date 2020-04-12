@@ -1,0 +1,26 @@
+version: "3"
+services:
+  pihole:
+    image: pihole/pihole
+    restart: unless-stopped
+    ports:
+      - 53:53
+      - 67:67
+      - 4080:80
+      - 4443:443
+    environment:
+      - TZ=Europe/London
+      - WEBPASSWORD=
+      - DNS1=1.1.1.1
+      - DNS2=1.0.0.1
+    volumes:
+      - $PWD/storage/etc/pihole:/etc/pihole
+      - $PWD/storage/etc/dnsmasq.d:/etc/dnsmasq.d
+      - $PWD/storage/var/log/pihole.log:/var/log/pihole.log
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+      - 1.0.0.1
+    cap_add:
+      - NET_ADMIN
+    container_name: pihole

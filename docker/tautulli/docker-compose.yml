@@ -1,0 +1,15 @@
+version: "3"
+services:
+  tautulli:
+    image: linuxserver/tautulli
+    restart: unless-stopped
+    ports:
+      - 8181:8181
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/London
+    volumes:
+      - $PWD/storage:/config
+      - /volume/docker/plex/storage/database/Library/Application\ Support/Plex\ Media\ Server/Logs:/logs
+    container_name: tautulli

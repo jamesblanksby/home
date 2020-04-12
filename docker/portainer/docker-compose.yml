@@ -1,0 +1,11 @@
+version: "3"
+services:
+  portainer:
+    image: portainer/portainer
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    volumes:
+      - $PWD/storage/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: portainer
