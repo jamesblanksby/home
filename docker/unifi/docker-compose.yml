@@ -6,17 +6,17 @@ services:
     volumes:
       - $PWD/mongo/storage/db:/data/db
     container_name: unifi_mongo
-  controller:
+  network_controller:
     image: jacobalberty/unifi
     restart: unless-stopped
     ports:
-      - 3478:3478/udp
-      - 6789:6789/tcp
-      - 8080:8080/tcp
-      - 8443:8443/tcp
-      - 8880:8880/tcp
-      - 8843:8843/tcp
-      - 10001:10001/udp
+      - 3478:3478
+      - 6789:6789
+      - 8080:8080
+      - 8443:8443
+      - 8880:8880
+      - 8843:8843
+      - 10001:10001
     environment:
       - DB_URI=mongodb://mongo/unifi
       - STATDB_URI=mongodb://mongo/unifi_stat
@@ -26,12 +26,39 @@ services:
       - VIRTUAL_PROTO=https
       - LETSENCRYPT_HOST=unifi.blanks.by
     volumes:
-      - $PWD/controller/storage/data:/unifi/data
-      - $PWD/controller/storage/log:/unifi/log
-      - $PWD/controller/storage/init.d:/unifi/init.d
+      - $PWD/controller/network/storage/data:/unifi/data
+      - $PWD/controller/network/storage/log:/unifi/log
+      - $PWD/controller/network/storage/init.d:/unifi/init.d
     depends_on:
       - mongo
-    container_name: unifi_controller
+    container_name: unifi_network_controller
+  video_controller:
+      image: pducharme/unifi-video-controller
+      restart: unless-stopped
+      ports:
+        - 1935:1935
+        - 6666:6666
+        - 7004:7004
+        - 7080:7080
+        - 7442:7442
+        - 7443:7443
+        - 7444:7444
+        - 7445:7445
+        - 7446:7446
+        - 7447:7447
+      environment:
+        - TZ=Europe/London
+        - PUID=99
+        - PGID=100
+        - CREATE_TMPFS=no
+      volumes:
+        - $PWD/controller/video/storage/data:/var/lib/unifi-video
+        - $PWD/controller/video/storage/video:/var/lib/unifi-video/videos
+      tmpfs:
+        - /var/cache/unifi-video
+      cap_add:
+        - DAC_READ_SEARCH
+      container_name: unifi_video_controller
 networks:
   default:
     external:

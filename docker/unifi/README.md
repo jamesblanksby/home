@@ -1,3 +1,3 @@
 # UniFi Controller
 
-A wireless network management software solution from Ubiquiti Networks.
+A wireless network and video management software solution from Ubiquiti Networks.
