@@ -10,6 +10,6 @@ services:
       - PGID=0
       - TZ=Europe/London
     volumes:
-      - $PWD/storage:/config
+      - ./storage:/config
       - /volume/docker/plex/storage/database/Library/Application\ Support/Plex\ Media\ Server/Logs:/logs
     container_name: tautulli

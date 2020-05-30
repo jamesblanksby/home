@@ -9,6 +9,6 @@ services:
       - USER_ID=0
       - GROUP_ID=0
     volumes:
-      - $PWD/conf:/config:rw
+      - ./conf:/config:rw
       - /volume/video:/storage:rw
     container_name: mkvtool

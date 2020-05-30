@@ -24,8 +24,8 @@ services:
       - PGID=0
       - UMASK=022
     volumes:
-      - $PWD/conf:/config
-      - $PWD/storage/data:/data
+      - ./conf:/config
+      - ./storage/data:/data
       - /volume/torrent/watch:/torrent/watch
       - /volume/torrent/incomplete:/torrent/incomplete
       - /volume/torrent/complete:/torrent/complete

@@ -14,9 +14,9 @@ services:
       - DNS1=1.1.1.1
       - DNS2=1.0.0.1
     volumes:
-      - $PWD/storage/etc/pihole:/etc/pihole
-      - $PWD/storage/etc/dnsmasq.d:/etc/dnsmasq.d
-      - $PWD/storage/var/log/pihole.log:/var/log/pihole.log
+      - ./storage/etc/pihole:/etc/pihole
+      - ./storage/etc/dnsmasq.d:/etc/dnsmasq.d
+      - ./storage/var/log/pihole.log:/var/log/pihole.log
     dns:
       - 127.0.0.1
       - 1.1.1.1

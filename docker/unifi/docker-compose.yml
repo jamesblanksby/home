@@ -4,7 +4,7 @@ services:
     image: mongo
     restart: unless-stopped
     volumes:
-      - $PWD/mongo/storage/db:/data/db
+      - ./mongo/storage/db:/data/db
     container_name: unifi_mongo
   controller:
     image: jacobalberty/unifi
@@ -26,9 +26,9 @@ services:
       - VIRTUAL_PROTO=https
       - LETSENCRYPT_HOST=unifi.blanks.by
     volumes:
-      - $PWD/controller/network/storage/data:/unifi/data
-      - $PWD/controller/network/storage/log:/unifi/log
-      - $PWD/controller/network/storage/init.d:/unifi/init.d
+      - ./controller/network/storage/data:/unifi/data
+      - ./controller/network/storage/log:/unifi/log
+      - ./controller/network/storage/init.d:/unifi/init.d
     depends_on:
       - mongo
     container_name: unifi_controller

@@ -10,7 +10,7 @@ services:
       - PGID=0
       - TZ=Europe/London
     volumes:
-      - $PWD/conf:/config
+      - ./conf:/config
       - /volume/torrent/watch:/downloads
     deploy:
       resources:

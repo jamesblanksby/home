@@ -11,7 +11,7 @@ services:
       - UMASK_SET=022
       - TZ=Europe/London
     volumes:
-      - $PWD/conf:/config
+      - ./conf:/config
       - /volume/torrent/complete:/downloads
       - /volume/video/movie:/movies
     deploy:

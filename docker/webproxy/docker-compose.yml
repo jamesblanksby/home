@@ -7,10 +7,10 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - $PWD/nginx/conf.d:/etc/nginx/conf.d
-      - $PWD/shared/certs:/etc/nginx/certs
-      - $PWD/shared/vhost.d:/etc/nginx/vhost.d
-      - $PWD/shared/html:/usr/share/nginx/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./shared/certs:/etc/nginx/certs
+      - ./shared/vhost.d:/etc/nginx/vhost.d
+      - ./shared/html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     container_name: webproxy_nginx
   companion: 
@@ -20,9 +20,9 @@ services:
       - DEFAULT_EMAIL=james@blamks.by
       - NGINX_PROXY_CONTAINER=webproxy_nginx
     volumes:
-      - $PWD/shared/certs:/etc/nginx/certs
-      - $PWD/shared/vhost.d:/etc/nginx/vhost.d
-      - $PWD/shared/html:/usr/share/nginx/html
+      - ./shared/certs:/etc/nginx/certs
+      - ./shared/vhost.d:/etc/nginx/vhost.d
+      - ./shared/html:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock:ro
     container_name: webproxy_letsencrypt
 networks:

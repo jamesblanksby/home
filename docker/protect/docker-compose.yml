@@ -9,8 +9,8 @@ services:
     environment:
       - TZ=Europe/London
     volumes:
-      - $PWD/motion/conf:/usr/local/etc/motion
-      - $PWD/motion/storage:/var/lib/motion
+      - ./motion/conf:/usr/local/etc/motion
+      - ./motion/storage:/var/lib/motion
     depends_on:
       - database
     labels:
@@ -28,8 +28,8 @@ services:
       - MYSQL_ROOT_PASSWORD=
       - MYSQL_DATABASE=
     volumes:
-      - $PWD/database/conf:/docker-entrypoint-initdb.d
-      - $PWD/database/storage:/var/lib/mysql
+      - ./database/conf:/docker-entrypoint-initdb.d
+      - ./database/storage:/var/lib/mysql
     container_name: protect_database
   vision:
     build: ./vision
@@ -39,9 +39,8 @@ services:
     environment:
       - TZ=Europe/London
     volumes:
-      - $PWD/vision/storage:/usr/src/
-      - $PWD/motion/storage:/usr/src/root/lib
-      - /usr/src/node_modules
+      - ./vision/conf/config.js:/usr/src/config.js
+      - ./motion/storage/:/usr/src/root/lib
     labels:
       - com.centurylinklabs.watchtower.enable=false
     container_name: protect_vision
@@ -49,8 +48,8 @@ services:
     build: ./cron
     restart: unless-stopped
     volumes:
-      - $PWD/cron/storage/task:/var/www
-      - $PWD/motion/storage:/var/lib
+      - ./cron/conf/storage:/var/www
+      - ./motion/storage:/var/lib
     labels:
       - com.centurylinklabs.watchtower.enable=false
     container_name: protect_cron

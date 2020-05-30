@@ -24,8 +24,8 @@ services:
       - VIRTUAL_PROTO=https
       - LETSENCRYPT_HOST=plex.blanks.by
     volumes:
-      - $PWD/storage/database:/config
-      - $PWD/storage/transcode:/transcode
+      - ./storage/database:/config
+      - ./storage/transcode:/transcode
       - /volume/video/movie:/data/movies
       - /volume/video/tv:/data/tvshows
       - /volume/user/james/Pictures/iPhone/:/data/pictures/James
