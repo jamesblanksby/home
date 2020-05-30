@@ -19,8 +19,8 @@ services:
       - 10001:10001
     environment:
       - DB_URI=mongodb://mongo/unifi
-      - STATDB_URI=mongodb://mongo/unifi_stat
       - DB_NAME=unifi
+      - STATDB_URI=mongodb://mongo/unifi_stat
       - VIRTUAL_HOST=unifi.blanks.by
       - VIRTUAL_PORT=8443
       - VIRTUAL_PROTO=https
