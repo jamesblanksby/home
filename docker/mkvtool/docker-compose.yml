@@ -1,0 +1,14 @@
+version: "3"
+services:
+  jackett:
+    image: jlesage/mkvtoolnix
+    restart: "no"
+    ports:
+      - 5800:5800
+    environment:
+      - USER_ID=0
+      - GROUP_ID=0
+    volumes:
+      - $PWD/conf:/config:rw
+      - /volume/video:/storage:rw
+    container_name: mkvtool
