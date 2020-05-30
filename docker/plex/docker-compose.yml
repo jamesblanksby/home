@@ -28,6 +28,8 @@ services:
       - $PWD/storage/transcode:/transcode
       - /volume/video/movie:/data/movies
       - /volume/video/tv:/data/tvshows
+      - /volume/user/james/Pictures/iPhone/:/data/pictures/James
+      - /volume/user/anna/Pictures/iPhone/:/data/pictures/Anna
     hostname: srv
     container_name: plex
 networks:
