@@ -49,7 +49,7 @@ services:
     build: ./cron
     restart: unless-stopped
     volumes:
-      - $PWD/cron/conf/task:/var/www
+      - $PWD/cron/storage/task:/var/www
       - $PWD/motion/storage:/var/lib
     labels:
       - com.centurylinklabs.watchtower.enable=false
