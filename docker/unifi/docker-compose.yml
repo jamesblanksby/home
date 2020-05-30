@@ -6,7 +6,7 @@ services:
     volumes:
       - $PWD/mongo/storage/db:/data/db
     container_name: unifi_mongo
-  network_controller:
+  controller:
     image: jacobalberty/unifi
     restart: unless-stopped
     ports:
@@ -31,34 +31,7 @@ services:
       - $PWD/controller/network/storage/init.d:/unifi/init.d
     depends_on:
       - mongo
-    container_name: unifi_network_controller
-  video_controller:
-      image: pducharme/unifi-video-controller
-      restart: unless-stopped
-      ports:
-        - 1935:1935
-        - 6666:6666
-        - 7004:7004
-        - 7080:7080
-        - 7442:7442
-        - 7443:7443
-        - 7444:7444
-        - 7445:7445
-        - 7446:7446
-        - 7447:7447
-      environment:
-        - TZ=Europe/London
-        - PUID=99
-        - PGID=100
-        - CREATE_TMPFS=no
-      volumes:
-        - $PWD/controller/video/storage/data:/var/lib/unifi-video
-        - $PWD/controller/video/storage/video:/var/lib/unifi-video/videos
-      tmpfs:
-        - /var/cache/unifi-video
-      cap_add:
-        - DAC_READ_SEARCH
-      container_name: unifi_video_controller
+    container_name: unifi_controller
 networks:
   default:
     external:
