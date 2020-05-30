@@ -1,0 +1,1 @@
+0 * * * * /usr/local/bin/php /var/www/delete_event_expired.php > /var/log/schedule.log 2>&1
