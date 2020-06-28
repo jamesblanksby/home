@@ -1,0 +1,77 @@
+version: "3"
+services:
+  vpn:
+    image: dperson/openvpn-client
+    restart: unless-stopped
+    ports:
+      - 7878:7878 # radarr
+      - 8989:8989 # sonarr
+      - 9117:9117 # jackett
+      - 8112:8112 # deluge
+    volumes:
+      - ./vpn/conf:/vpn
+      - /dev/net:/dev/net:z
+    command: '-f "" -r 10.10.0.0/24'
+    cap_add:
+      - net_admin
+    security_opt:
+      - label:disable
+    container_name: torrent_vpn
+  radarr:
+    image: linuxserver/radarr
+    restart: unless-stopped
+    network_mode: service:vpn
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK_SET=022
+      - TZ=Europe/London
+    volumes:
+      - ./radarr/conf:/config
+      - ./deluge/storage/complete:/downloads
+      - /volume/video/movie:/movies
+      - /etc/localtime:/etc/localtime:ro
+    container_name: torrent_radarr
+  sonarr:
+    image: linuxserver/sonarr
+    restart: unless-stopped
+    network_mode: service:vpn
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK_SET=022
+      - TZ=Europe/London
+    volumes:
+      - ./sonarr/conf:/config
+      - ./deluge/storage/complete:/downloads
+      - /volume/video/tv:/tv
+      - /etc/localtime:/etc/localtime:ro
+    container_name: torrent_sonarr
+  jackett:
+    image: linuxserver/jackett
+    restart: unless-stopped
+    network_mode: service:vpn
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Europe/London
+    volumes:
+      - ./jackett/conf:/config
+      - ./deluge/storage/watch:/downloads
+      - /etc/localtime:/etc/localtime:ro
+    container_name: torrent_jackett
+  deluge:
+    image: linuxserver/deluge
+    restart: unless-stopped
+    network_mode: service:vpn
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK_SET=022
+      - TZ=Europe/London
+    volumes:
+      - ./deluge/conf:/config
+      - ./deluge/storage/watch:/torrent/watch
+      - ./deluge/storage/incomplete:/torrent/incomplete
+      - ./deluge/storage/complete:/torrent/complete
+    container_name: torrent_deluge
