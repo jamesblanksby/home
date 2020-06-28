@@ -1,8 +1,8 @@
-# Home
+# 🏠 Home
 
 Configuration file storage for services running on my network.
 
-## Contents
+## 📦 Contents
 
-1. [UniFi](unifi)
-2. [Docker](docker)
+1. 🌐 [UniFi](unifi)
+2. 🐳 [Docker](docker)
